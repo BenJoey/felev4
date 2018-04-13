@@ -1,0 +1,240 @@
+\documentclass{article}
+\usepackage[textwidth=170mm, textheight=230mm, inner=20mm, top=5mm, bottom=20mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{physics}
+\usepackage{scrextend}
+\KOMAoption{fontsize}{11pt}
+\PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm,amssymb,paralist,array, ellipsis, graphicx, float, relsize}
+
+\begin{document}
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+\def\ab{[a;b]}
+\def\xnn{x_0,x_1,...,x_n}
+\def\xkk{x_0,x_1,...,x_k}
+\def\lp{_{+}^{l}}
+\renewcommand{\labelitemi}{\textbullet}
+\begin{center}
+	{\Large\textbf{Numerikus Módszerek 2. B szakirány}}\\[0.2cm]	
+	1. ZH-n kért elméleti kérdések	
+\end{center}
+{\small A kidolgozást \textsc{Bauer Bence} készítette \textsc{Németh Zsolt} előadásai alapján.}
+%BIZONYTALANSÁG: 15,19,23
+\begin{enumerate}
+	\item\textbf{Ismertesse a (Lagrange) interpoláció alapfeladatát.}\\
+	Adottak az $\xnn\in\ab$ különböző alappontok, $y_0,y_1,...,y_n\in\R$
+	függvényértékek. \\ Olyan $p_n\in P_n$ polinomot keresünk, melyre
+	{\Large\[p_n(x_i)=y_i,\quad(i=0,1,...,n)\]}
+	A feltételnek eleget tevő polinomot \textit{interpolációs polinomnak} nevezzük.\\
+	$P_n$ a legfeljebb $n$-edfokú polinomok halmaza.
+	\item\textbf{Milyen tételt tanult a (Lagrange) interpolációs feladat megoldásának létezéséről?}\\
+	Az interpolációnak egyértelműen létezik megoldása, azaz
+	{\Large\[\exists!p_n\in P_n:\quad p_n(x_i)=y_i,\quad(i=0,1,...,n)\]}
+	\item\textbf{Definiálja a Lagrange-alappolinomokat.}\\
+	Az $\xnn$ különböző alappontok által meghatározott \\
+	\textit{Lagrange-alappolinomok} a következők:
+	{\Large\[l_k(x)=\prod\limits_{j=0,j\neq k}^{n}\frac{x-x_j}{x_k-x_j}\quad(k=0,1,...,n)\]}
+	\item\textbf{Melyek a Lagrange-alappolinomok alaptulajdonságai?}
+	\begin{itemize}
+		{\Large\item
+		$\displaystyle l_k(x_i)=\delta_{ki}= 
+		\left\{
+		\begin{gathered}
+		\quad 1\quad:\quad k=i\hspace{5.7cm} \\
+		\quad 0\quad:\quad k\neq i\hspace{5.7cm}
+		\end{gathered}\right.$
+		\item $l_k(x)=\frac{\omega_n(x)}{(x-x_k)\omega_n'(x_k)}$, ahol 
+		$\omega_n(x)=\prod\limits_{j=0}^n(x-x_j)$
+		\item $L_n(x):=\sum\limits_{k=0}^ny_kl_k(x)\equiv p_n(x)$}
+	\end{itemize}
+	$L_n$ jelöli az interpolációs polinom \textit{Lagrange-alakját}.
+	\item\textbf{Milyen tételt tanult az interpolációs polinom hibájáról?}
+	\begin{itemize}
+		\item Legyen $x\in\R$ tetszőleges
+		\item $\ab$ az $\xnn$ és $x$ által kifeszített intervallum
+		\item továbbá $f\in C^{n+1}\ab$
+	\end{itemize}
+	Ekkor $\exists\xi_x\in\ab$, melyre:{\Large
+	$\quad f(x)-p_n(x)=\frac{f^{(n+1)}(\xi_x)}{(n+1)!}\cdot\omega_n(x)$}\\
+	A hibabecslés:\\[0.2cm]{\Large$\quad\abs{f(x)-p_n(x)}\leq
+	\frac{M_{n+1}}{(n+1)!}\cdot\abs{\omega_n(x)}$}, ahol 
+	{\Large $M_{n+1}:=\max\limits_{\xi\in\ab}\abs{f^{(n+1)}(\xi)}$}
+	\newpage
+	\item\textbf{Definiálja az osztott differenciákat különböző alappontokra.}\\
+	Az $\xnn$ különböző alapppontok által meghatározott
+	\begin{itemize}
+		\item\textit{elsőrendű osztott differenciák} a következők:{\Large
+		\[f[x_i,x_{i+1}]:=\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i},\quad(i=0,1,...,n-1)\]}
+		\item A \textit{k-adrendű osztott differenciákat} rekurzívan definiáljuk:
+		{\Large\[f[x_i,x_{i+1},...,x_{i+k-1},x_{i+k}]:=
+		\frac{f[x_{i+1},...,x_{i+k-1},x_{i+k}]-f[x_i,x_{i+1},...,x_{i+k-1}]}
+		{x_{i+k}-x_i}\]}
+		\item Ha a 0-adrendű osztott differenciákat $f[x_i]:=f(x_i)$-vel definiáljuk, akkor az elsőrendű \\ osztott differenciát is a rekurzióval számolhatjuk.
+	\end{itemize}
+	\item\textbf{Ismertesse az osztott differenciák tulajdonságait.}
+	\begin{itemize}
+		\item{\Large $f[x_0,x_1,...,x_k]=\sum\limits_{j=0}^k
+		\frac{f(x_j)}{\omega_k'(x_j)}$}
+		\item Ha $\sigma$ a ($0,1,...,k$) értékek egy permutációja, akkor \\[0.2cm]
+		{\Large $f[x_{\sigma(0)},x_{\sigma(1)},...,x_{\sigma(k)}]=f[x_0,x_1,...,x_k]$}
+	\end{itemize}
+	\item\textbf{Milyen tételt tanult az interpolációs polinom Newton-alakjáról?}\\[0.1cm]
+	{\Large $N_n(x):=f(x_0)+\sum\limits_{k=1}^nf[x_0,x_1,...,x_k]\cdot\omega_{k-1}(x)
+	\equiv L_n(x)$}\\[0.2cm]
+	$N_n$-t az interpolációs polinom \textit{Newton-alakjának} nevezzük.\\[0.1cm]
+	A rekurzív formula új $x_{n+1}$ alappont hozzávétele esetén:\\[0.2cm]
+	{\Large $N_{n+1}(x)=N_n(x)+f[x_0,x_1,...,x_{n+1}]\cdot\omega_n(x)$}
+	\item\textbf{Definiálja a Csebisev-polinomokat.}\\[0.2cm]
+	A $T_n(x):=\cos(n\cdot\arccos(x)),x\in[-1,1]$ függvényt $n$-edfokú
+	Csebisev-polinomnak nevezzük.
+	\item\textbf{Ismertesse a Csebisev-polinomok rekurzióját.}\\[0.1cm]
+	$T_0(x):=1,\quad T_1(x):=x\\[0.2cm]T_{n+1}(x):=2x\cdot T_n(x)-T_{n-1}(x)\quad
+	(n=1,2,...)$
+	\item\textbf{Milyen tételt tanult a Csebisev-polinomok gyökeiről?}
+	\begin{itemize}
+		\item $T_n$-nek $n$ db különböző valós gyöke van $[-1,1]$-en.
+		\item A gyökök a 0-ra szimmetrikusan helyezkednek el.
+		\item Ha $n$ páros, akkor $T_n$ páros függvény, ha $n$ páratlan, akkor $T_n$
+		páratlan függvény.
+	\end{itemize}
+	\item\textbf{Milyen tételt tanult a Csebisev-polinomok szélsőértékeiről?}\\[0.2cm]
+	$T_n$-nek $n+1$ db szélsőérték helye van $[-1,1]$-en.
+	\item\textbf{Ismertesse a Csebisev polinomok extremalitásáról tanult tételt (Csebisev-tétel).}\\[0.1cm]
+	A ($T_n,n\in\N$) rendszer extremális tulajdonsága:	
+	\[\min\limits_{\tilde{Q}\in P_n^{(1)}}||\tilde{Q}||_{\infty}=||\tilde{T}_n|
+	|_{\infty}=\frac{1}{2^{n-1}},\]
+	ahol $||\tilde{Q}||_{\infty}:=\max\limits_{x\in[-1,1]}\abs{\tilde{Q}(x)}$
+	\newpage
+	\item\textbf{Milyen tételt tanult az interpolációs polinom hibájáról az $\ab$ intervallumon \\ Csebisev-alappontok alkalmazása esetén?}\\[0.1cm]
+	Az $\ab$-n vett interpoláció és $f\in C^{(n+1)}\ab$ függvény esetén az
+	interpoláció hibája pontosan akkor minimális, ha az alappontok az $\ab$-be
+	transzformált Csebisev gyökök. Ekkor:
+	\[||f-L_n||_{\infty}\leq\frac{M_{n+1}}{(n+1)!}\cdot\bigg(\frac{b-a}{2}\bigg)^{n+1}
+	\cdot||\tilde{T}_{n+1}||_{\infty}=\frac{M_{n+1}}{(n+1)!}\cdot\frac{1}{2^n}
+	\cdot\bigg(\frac{b-a}{2}\bigg)^{n+1}\]
+	\item\textbf{Hogyan értelmeztük interpolációs polinomok konvergenciáját?}\\[0.1cm]
+	Az $(x_k^{(n)}:k=0,1,...,n)$ alappontsorozat esetén jelöljük ($L_n$)-nel
+	az alappontokhoz tartozó interpolációs polinom sorozatot.\\[0.1cm]
+	\hspace*{2cm}$(x_0^{(0)})\hspace{2.2cm}\to L_0$\\[0.2cm]
+	\hspace*{2cm}$(x_0^{(1)},x_1^{(1)})\hspace{1.4cm}\to L_1$\\[0.2cm]
+	\hspace*{2cm}$(x_0^{(2)},x_1^{(2)},x_2^{(2)})\hspace{0.6cm}\to L_2$\\[0.1cm]
+	\hspace*{3cm}$\vdots\hspace{2.5cm}\vdots$\\[0.1cm]
+	\hspace*{2cm}$(x_0^{(n)},x_1^{(n)},...,x_n^{(n)})\hspace{0.1cm}\to L_n$\\[0.3cm]
+	Ekkor a vizsgált $f$ függvény mellett: $\lim\limits_{n\to\infty}||f-L_n||_{\infty}=0$
+	\item\textbf{Milyen tételt tanult végtelenszer folytonosan differenciálható függvény interpolációs polinomjainak konvergenciájáról?}
+	\begin{itemize}
+		\item Tfh. $f\in C^\infty\ab$ és
+		\item $\exists M>0:||f^{(n)}||_\infty\leq M^n\quad(\forall n\in\N)$
+	\end{itemize}
+	Ekkor $\forall(x_k^{(n)}:k=0,1,...,n)$ alappontrendszer sorozat esetén
+	$\lim\limits_{n\to\infty}||f-L_n||_{\infty}=0$
+	\item\textbf{Ismertesse az interpolációs polinomok konvergenciájáról tanult Faber-tételt.}\\[0.2cm]
+	$\forall(x_k^{(n)}:k=0,1,...,n)$ alappontrendszer sorozat esetén $\exists
+	f\in C\ab$, hogy $\lim\limits_{n\to\infty}||f-L_n||_{\infty}\neq0$
+	\item\textbf{Ismertesse az interpolációs polinomok konvergenciájáról tanult Marcinkiewicz-tételt.}\\[0.2cm]
+	$\forall f\in C\ab$ esetén $\exists(x_k^{(n)}:k=0,1,...,n)$ alappontrendszer
+	sorozat, hogy $\lim\limits_{n\to\infty}||f-L_n||_{\infty}=0$
+	\item\textbf{Mutassa be az inverz interpoláció módszerét.}\\[0.1cm]
+	Tegyük fel, hogy $f$ invertálható $\ab$-n, ekkor az $f$ 
+	függvény helyett az inverzét közelítjük.\\[0.1cm]
+	{\large $f(x^*)=0\quad\Leftrightarrow\quad x^*=f^{-1}(0)$} helyettesítés\\[0.1cm]
+	Az $f(x_0),...,f(x_n)$ alappontokra és $x_0,...,x_n\in\ab$ függvényértékekre
+	felírjuk a \\ $Q_n(y)$ interpolációs polinomot.\\[0.1cm]
+	{\Large $Q_n(y)\approx f^{-1}(y)\quad\to\quad x_{k+1}:=Q_n(0)$}
+	\item\textbf{Ismertesse az Hermite interpoláció feladatát.}
+	\begin{itemize}
+		\item Adottak az $\xkk\in\ab$ különböző alappontok
+		\item $m_0,m_1,...,m_k\in\N$ multiplicitás értékek és
+		\item $y_0^{(j)},y_1^{(j)},...,y_k^{(j)}\in\R$ függvény- és derivált értékek
+		$\quad(j=0,...,m_i-1)$
+		\item $m:=\sum\limits_{i=0}^km_i-1$
+		\item Olyan $H_m\in P_m$ polinomot keresünk, melyre: $H_m^{(j)}(x_i)=y_i^{(j)}
+		\\[0.1cm](i=0,1,...,k;j=0,...,m_i-1)$\\[0.1cm]
+		A feltételnek eleget tevő polinomot \textit{Hermite-interpolációs polinomnak}
+		nevezzük.
+	\end{itemize}
+	\newpage
+	\item\textbf{Milyen tételt tanult az Hermite interpolációs feladat megoldásának létezéséről?}\\[0.2cm]
+	$\exists!H_m\in P_m:H_m^{(j)}(x_i)=y_i^{(j)}\quad(i=0,1,...,k;j=0,...,m_i-1)$
+	\item\textbf{Milyen tételt tanult az Hermite interpolációs polinom hibájáról?}
+	\begin{itemize}
+		\item Legyen $x\in\R$ tetszőleges
+		\item $\ab$ az $\xkk$ és $x$ által kifeszített intervallum
+		\item továbbá $f\in C^{m+1}\ab$
+	\end{itemize}
+	Ekkor:
+	\begin{itemize}
+		\item $\exists\xi_x\in\ab$, melyre: {\Large$f(x)-H_m(x)=
+		\frac{f^{(m+1)}(\xi_x)}{(m+1)!}\cdot\Omega_m(x)$}%\\[0.2cm]
+		\item Hibabecslés: {\Large$\abs{f(x)-H_m(x)}\leq\frac{M_{m+1}}{(m+1)!}\cdot
+		\abs{\Omega_m(x)}$}, ahol\\[0.2cm] {\Large $M_{m+1}:=||f^{(m+1)}||_\infty,
+		\quad\Omega_m(x):=\prod\limits_{i=0}^k(x-x_i)^{m_i}$}
+	\end{itemize}
+	\item\textbf{Ismertesse folytonos függvény egyenletes közelítéséről tanult tételt Fejér–Hermite interpolációs polinomokkal.}\\[0.2cm]
+	%Legyen $\forall m_i=2$ és $f\in C\ab$ tetszőleges, ekkor a
+	%{\Large $H_m(x_i)=f(x_i),\quad H_m'(x_i)=0$}\\[0.1cm]
+	%feltételekkel definiált Hermite polinomokra, ahol az $x_i,(i=0,...,k)$\\[0.2cm]
+	%alappontok a Csebisev gyökök: {\Large $\lim\limits_{m\to+\infty}
+	%||f-H_m||_{\infty}=0$}
+	Legyen $f\in C\ab,\Big(x_k^{(i)}\Big)$ alappontokban Csebisev gyökök és $\forall 
+	m_i=2$,	interpolációs feltételek:\\[0.2cm]{\Large$H_m(x_i)=f(x_i)$ és 
+	$H_m'(x_i)=0\quad$}Ekkor:\\[0.4cm]{\Large $||H_m-f||_\infty
+	=\max\limits_{x\in\ab}\abs{H_m(x)-f(x)}\to0\quad(m\to+\infty)$}
+	\item\textbf{Definiálja az osztott differenciákat azonos alappontokra.}
+	\begin{itemize}
+		\item Az \textit{elsőrendű osztott differenciák}: {\Large$f[x_i,x_i]:=f'(x_i),
+		\quad(i=0,1,...,k)$}\\
+		\item A \textit{k-adrendű osztott differenciák}: {\Large
+		$f[\underbrace{x_i}_{0.},\underbrace{x_i}_{1.},...,\underbrace{x_i}_{k.}]
+		:=\frac{f^{(k)}(x_i)}{k!}$} $(i=0,1,...,m_k-1)$
+	\end{itemize}
+	\item\textbf{Definiálja az interpolációs spline-okat.}\\[0.1cm]
+	Tekintsük az $a=x_0<...<x_n=b$ felosztást, ahol $l_k:=[x_{k-1},x_k]$ részintervallum
+	$(k=1,...,n)$\\[0.1cm]Az $S_l:\ab\to\R$ függvényt $l$\textit{-edfokú spline}-nak
+	nevezzük, ha
+	\begin{itemize}
+		\item{\Large$S_l|_{l_k}\in P_l\quad(k=1,...,n)$}
+		\item{\Large $S_l\in C^{(l-1)}\ab$}
+		\item Az $S_l$ spline-t \textit{interpolációs spline}-nak nevezzük, ha
+		{\Large $S_l(x_i)=f(x_i)\quad(i=0,...,n)$}
+	\end{itemize}
+	\newpage
+	\item\textbf{Vázolja másodfokú spline Hermite interpoláció segítségével történő előállításának algoritmusát.}\\[0.1cm]
+	A polinom alakja az $l_k:=[x_{k-1},x_k]$ intervallumon:\\[0.1cm]
+	{\Large $p_k(x):=a_2^{(k)}(x-x_{k-1})^2+a_1^{(k)}(x-x_{k-1})+a_0^{(k)}\quad
+	(x\in l_k)$}\\[0.2cm]Az együtthatók a következő algoritmussal állíthatók elő:
+	\\[0.1cm]$m_1:=f'(x_0)\quad k=1,...,n:$\\[0.2cm]
+	{\Large $a_0^{(k)}:=f(x_{k-1})$}\\[0.2cm]
+	{\Large $a_1^{(k)}:=m_k$}\\[0.2cm]
+	{\Large $a_2^{(k)}:=\frac{f[x_{k-1},x_k]-m_k}{x_k-x_{k-1}}$}\\[0.2cm]
+	{\Large $m_{k+1}:=2f[x_{k-1},x_k]-m_k$}
+	\item\textbf{Mutasson be 3 féle, a gyakorlatban használt peremfeltétel-típust.}
+	\begin{itemize}
+		\item Hermite-féle peremfeltétel: $S_3'(a)=f'(a)$ és $S_3'(b)=f'(b)$
+		\item Természetes peremfeltétel: $S_3''(a)=0$ és $S_3''(b)=0$
+		\item A "not a knot" peremfeltétel: $S_3'''\in C\{x_1\}$ és $S_3'''\in
+		C\{x_{n-1}\}$
+	\end{itemize}
+	\item\textbf{Definiálja a jobboldali hatványfüggvényeket és mondja ki a róluk tanult tételt.}\\[0.2cm]
+	$l\in\N^+,x_k\in\R$\\[0.4cm]
+	$\displaystyle (x-x_k)_{+}^{l}:= 
+	\left\{
+	\begin{gathered}
+	\quad (x-x_k)^l\quad:\quad\text{ha }x\geq x_k\hspace{5.7cm} \\
+	\quad 0\quad:\quad\text{ha }x<x_k\hspace{4.4cm}
+	\end{gathered}\right.$\\[0.4cm]
+	$l\geq 2$ esetén $(x-x_k)\lp$ folytonosan differenciálható, és\\[0.2cm]
+	{\Large $\Big[(x-x_k)\lp\Big]'=l\cdot(x-x_k)_{+}^{l-1}$}
+	\item\textbf{Milyen tételt tanult spline előállításáról a globális bázisban?}
+	\begin{itemize}
+		\item Az $1,x,...,x^l,(x-x_1)\lp,...,(x-x_{n-1})\lp$ függvényrendszer
+		lineárisan független $S_l(\Omega_n)$-en
+		\item Bármely $S\in S_l(\Omega_n)$ egyértelműen előállítható a fenti rendszerrel.
+		\item dim$S_l(\Omega_n)=n+l$
+	\end{itemize}
+\end{enumerate}
+\end{document}
