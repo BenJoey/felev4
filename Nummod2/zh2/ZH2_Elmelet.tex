@@ -180,8 +180,8 @@
 	\begin{itemize}
 		\item Érintő (Ny(0)): $\intab f\approx(b-a)\cdot f\big(\frac{a+b}{2}\big)=:E(f)$
 		\item Trapéz (Z(1)): $\intab f\approx\frac{b-a}{2}\cdot(f(a)+f(b))=:T(f)$
-		\item Simpson (Z(2)): $\intab f\approx\frac{b-a}{6}\cdot(f(a)+4\big(
-		\frac{a+b}{2}+f(b)\big))=:S(f)$
+		\item Simpson (Z(2)): $\intab f\approx\frac{b-a}{6}\cdot(f(a)+4f\big(
+		\frac{a+b}{2}\big)+f(b))=:S(f)$
 	\end{itemize}
 	\item\textbf{Adjon hibabecslést az érintő, trapéz és Simpson formulákhoz.}
 	\begin{itemize}
@@ -199,7 +199,7 @@
 	\newpage
 	\item\textbf{Mit nevezünk összetett Simpson formulának? Adja meg a hibabecslését.}\\[0.1cm]
 	$S_m(f):=\frac{b-a}{3m}\cdot\bigg(f(a)+4\sum\limits_{k=1}^{\frac{m}{2}}
-	f(x_{2k}-1)+2\sum\limits_{k=1}^{\frac{m}{2}-1}f(x_{2k})+f(b)\bigg)\\[0.1cm]
+	f(x_{2k-1})+2\sum\limits_{k=1}^{\frac{m}{2}-1}f(x_{2k})+f(b)\bigg)\\[0.1cm]
 	\intab f\approx S_m(f)$\\[0.3cm]Hibabecslés:\\[0.1cm]
 	{\Large Ha $f\in C^4\ab$, ekkor $\exists\eta\in\ab:\intab f-S_m(f)=
 	-\frac{(b-a)^5}{180m^4}\cdot f^{(4)}(\eta)$}
