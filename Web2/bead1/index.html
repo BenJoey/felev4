@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Your Waifu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+        <h1>Memória Játék VoHiYo Edition</h1>
+        <div id="menu">
+            <h2>Játék beállítása</h2>
+            <p>Táblaméret</p>
+            <select id="tablesize">
+                <option value="4">4x4</option>
+                <option value="6">6x6</option>
+                <option value="8">8x8</option>
+            </select>
+            <br/>
+            <p>Képek nehézsége</p>
+            <select id="difficulty">
+                <option value="easy">Könnyű</option>
+                <option value="medium">Közepes</option>
+                <option value="hard">Nehéz</option>
+            </select>
+            <br/>
+            <p>Játékmód kiválasztása</p>
+            <select id="gamemode">
+                <option value="solo">Solo játék</option>
+                <option value="ai">Gép ellen</option>
+                <option value="twoplayer">Kétjátékos mód</option>
+            </select>
+            <br/><br/><br/>
+            <button class="gomb">Start</button><br/><br/>
+            <p>Nehézségek leírása:</p>
+            <p>Könnyű: Minden képen más karakter van.</p>
+            <p>Közepes: Egy karakter több képen is lehet.</p>
+            <p>Nehéz: Minden képen ugyanaz a karakter van.</p>
+        </div>
+
+        <div id="game">
+            <h3 id="gameTitle"></h3>
+            <canvas id="gameTable"></canvas><br /><br />
+            <button class="home_button"><i class="fa fa-home"></i> Home</button><br/><br/>
+            <span id="gametext"></span>
+        </div>
+
+        <div id="end">
+            <h2 class="blink">A játéknak vége :)</h2>
+            <span id="endgame"></span><br/><br/>
+            <img src="images/end.png"><br/><br/>
+            <button class="home_button">Új Játék</button>
+        </div>
+
+    <script src="scripts/display.js"></script>
+    <script src="scripts/game.js"></script>
+</body>
+</html>
