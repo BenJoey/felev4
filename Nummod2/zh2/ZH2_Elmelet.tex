@@ -26,9 +26,9 @@
 \begin{enumerate}
 	\setcounter{enumi}{29}
 	\item\textbf{Definiálja a B-spline-okat (a definícióban szereplő jelölések értelmezését is adja meg).}\\[0.1cm]
-	Az $f:\rtr$ \textit{függvény tartója} következo valós számhalmaz
+	Az $f:\rtr$ \textit{függvény tartója} következő valós számhalmaz
 	\begin{center}
-		$supp(f):=\overline{x\in\R:f(x)\neq0}$
+		$supp(f):=\{\overline{x\in\R:f(x)\neq0}\}$
 	\end{center}
 	$\Omega_\infty:=\{...,x_{-n},...,x_{-1},x_0,x_1,..,x_n,..\}$ alappontrendszer \\[0.2cm]
 	$S_l(\Omega_\infty):$ az $\Omega_\infty$ alappontrendszeren értelmezett $l$-edfokú spline-ok halmaza.\\[0.2cm]
@@ -88,14 +88,14 @@
 	\item\textbf{Milyen hibabecslést tanult 1-fokú spline interpolációra?}\\[0.1cm]
 	Ha $f\in C^2\ab$ és $S\in S_1(\Omega_n)$ lineáris interpolációs spline, akkor\\[0.2cm]
 	{\Large $||f-S||_\infty\leq\frac{1}{8}h^2\cdot||f''||_\infty,\quad$ ahol
-	$h:=\max\limits_{i=1}^{n}\abs{h_k}$}
+	$h:=\max\limits_{k=1}^{n}\abs{h_k}$}
 	\item\textbf{Milyen hibabecslést tanult 3-fokú spline interpolációra?}\\[0.1cm]
 	Ha $f\in C^4\ab$ és $S\in S_3(\Omega_n)$ köbös interpolációs spline 
 	Hermite-peremfeltétellel, akkor\\[0.2cm]
 	{\Large $||f-S||_\infty\leq\frac{5}{384}h^4\cdot||f^{(4)}||_\infty\\[0.2cm]
 	||f'-S'||_\infty\leq\frac{1}{24}h^3\cdot||f^{(4)}||_\infty\\[0.2cm]
 	||f''-S''||_\infty\leq\frac{3}{8}h^2\cdot||f^{(4)}||_\infty,\quad$ ahol
-	$h:=\max\limits_{i=1}^{n}\abs{h_k}$}
+	$h:=\max\limits_{k=1}^{n}\abs{h_k}$}
 	\item\textbf{Mit nevezünk mátrix szinguláris felbontásának, mik a szinguláris értékek?}\\[0.1cm]
 	Tetszőleges $A\in\C^{m\cross n}$ esetén $\exists U\in\C^{m\cross m},V\in\C^{n\cross n}$
 	unitér mátrix és $D\in\C^{m\cross n}$,\\[0.1cm]particionálva $D=
@@ -110,7 +110,7 @@
 	$=span\{v_{r+1},...,v_n\}$
 	\newpage
 	\item\textbf{Mit mond ki az Eckart–Young tétel?}\\[0.1cm]
-	Ha rang(A)$=r$, akkor a $k$ rangú legjobb közelítése eloállítható a szinguláris felbontásból\\[0.1cm]
+	Ha rang(A)$=r$, akkor a $k$ rangú legjobb közelítése előállítható a szinguláris felbontásból\\[0.1cm]
 	{\Large $A_k=\sum\limits_{i=1}^{k}\sigma_iu_iv_i^T$}\\[0.1cm]
 	ahol $\sigma_i$ az $i$. szinguláris értéket, $u_i$ és $v_i$ a bal és jobb szinguláris
 	vektort jelöli. Ez a közelítés a 2-es és a Frobenius normában is a legjobb, a hibák:
@@ -144,10 +144,10 @@
 	\begin{itemize}
 		\item $||Ax-b||_2\geq||Ax^+-b||_2,\quad\forall x\in\C^n$
 		\item $H:=\{x\in\C^n|\text{  }||Ax-b||_2=||Ax^+-b||_2\}$, akkor\\[0.1cm]
-		$||x^+||_2<||x||_2\quad\forall x\in\C^n,\quad x\neq x^+$
+		$||x^+||_2<||x||_2\quad\forall x\in H,\quad x\neq x^+$
 	\end{itemize}
 	\item\textbf{Ismertesse a legkisebb négyzetek módszerének feladatát.}\\[0.1cm]
-	Adottak az $x_1,...,x_N\in\ab$ különbözo alappontok, $y_1,...,y_N\in\R$
+	Adottak az $x_1,...,x_N\in\ab$ különböző alappontok, $y_1,...,y_N\in\R$
 	függvényértékek vagy mérési eredmények. Olyan $p_n\in P_n$ polinomot keresünk
 	($n+1\leq N$, általában $N\gg n$), melyre\\[0.1cm]
 	{\Large $\sum\limits_{i=1}^{N}(y_i-p_n(x_i))^2$ minimális}\\[0.1cm]
